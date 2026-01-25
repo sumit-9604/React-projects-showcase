@@ -6,4 +6,5 @@ export default function auth(req, res, next){
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.userid = decoded.id;
+    next();
 }
