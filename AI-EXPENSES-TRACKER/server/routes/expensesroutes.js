@@ -2,7 +2,7 @@ import express from "express";
 import expenses from "../models/expenses.js";
 import auth from "../auth.js";
 import { categorizeExpenses } from "../ai/categorizeExpenses.js";
-import expenses from "../models/expenses.js";
+
 
 const router = express.Router();
 

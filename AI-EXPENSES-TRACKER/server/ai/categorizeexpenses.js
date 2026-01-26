@@ -29,6 +29,6 @@ export async function categorizeExpenses(text) {
         }
     );
     const data = await response.json();
-    return data.label[0];
+    return data.labels[0];
     
 }
