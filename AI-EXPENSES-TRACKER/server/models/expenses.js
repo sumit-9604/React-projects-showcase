@@ -7,7 +7,7 @@ const expenseSchema = new mongoose.Schema({
 
     //data owner
     userid:{
-        type: mongoose.Schema.types.objectid,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "user",
         required: true },
 

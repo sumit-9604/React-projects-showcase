@@ -1,8 +1,7 @@
 import express from "express";
 import expenses from "../models/expenses.js";
 import auth from "../auth.js";
-import { categorizeExpenses } from "../ai/categorizeExpenses.js";
-
+import { categorizeExpenses } from  "../ai/categorizeexpenses.js"
 
 const router = express.Router();
 
@@ -14,7 +13,7 @@ router.post("/",auth,async (req, res) => {
         amount: req.body.amount,
         category,
         userid: req.userid
-    });
+     });
 
     res.json(expense);
 

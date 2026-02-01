@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+
 
 const labels =[
     "food",
@@ -10,6 +10,7 @@ const labels =[
     "Subscriptions",
     "Others"
 ];
+
 
 
 export async function categorizeExpenses(text) {
