@@ -6,7 +6,7 @@ import { predictmonthlyexpenses } from "../ai/predictexpenses.js";
 const router = express.Router();
 
 router.get("/summary" , auth, async(req,res) => {
-    const expenses = await expense.find({userid:req.userid});
+    const expenses = await expense.find({userid:req.user.id});
 
     const prediction = predictmonthlyexpenses(expenses);
     res.json({

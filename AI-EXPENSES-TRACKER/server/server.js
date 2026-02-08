@@ -20,9 +20,7 @@ app.use("/api/expenses", expenseRoutes);
 app.use("/api/analytics", analyticRoute);
 
 
-app.use((req, res, next) => {
-  res.status(404).json({ error: "Route not found" });
-});
+
 
 
 app.use((err, req, res, next) => {
@@ -48,3 +46,10 @@ const startServer = async () => {
 };
 
 startServer();
+app.use((req, res, next) => {
+  res.status(404).json({ error: "Route not found" });
+});
+
+app.get("/api/test", (req, res) => {
+  res.json({ message: "Backend connected successfully 🚀" });
+});
