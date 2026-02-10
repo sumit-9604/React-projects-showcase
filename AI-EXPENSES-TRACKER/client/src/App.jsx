@@ -1,9 +1,17 @@
-import { AuthProvider } from "./content";
-import Login from "./pages/login";
-function App() {
-  return (
+import { useContext } from "react";
+import { AuthProvider, AuthContext } from "./content";
+import Dashboard from "./pages/dashboard";
+import Login from "../src/pages/login";
+
+function Appcontent(){
+  const { token } = useContext(AuthContext);
+  return token ? <Dashboard/> : <Login/>;
+}
+
+function App(){
+  return(
     <AuthProvider>
-        <Login></Login>
+      <Appcontent/>
     </AuthProvider>
   );
 }
