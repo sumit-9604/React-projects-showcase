@@ -5,13 +5,21 @@ import { predictmonthlyexpenses } from "../ai/predictexpenses.js";
 
 const router = express.Router();
 
-router.get("/summary" , auth, async(req,res) => {
-    const expenses = await expense.find({userid:req.user.id});
+router.get("/summary", auth, async (req, res) => {
+  try {
+    
+    const expenses = await expense.find({ userid: req.user.id });
 
-    const prediction = predictmonthlyexpenses(expenses);
+    const {total, prediction} = predictmonthlyexpenses(expenses);
+
     res.json({
-        total: expenses.reduce((s,e) => s+e.amount, 0), prediction
+      total,
+      prediction
     });
+  } catch (err) {
+    console.error("Analytics error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
 export default router;

@@ -13,6 +13,7 @@ export default function Login() {
   const submit = async () => {
     try {
       const res = await API.post("/auth/login", data);
+      localStorage.setItem("token",res.data.token);
       login(res.data.token);
       alert("successfully login");
     } catch (err) {

@@ -17,4 +17,5 @@ export default function ExpenseChart({ expenses }) {
         <Tooltip />
         </PieChart>
     );
+    
 }

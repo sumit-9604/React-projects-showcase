@@ -1,43 +1,63 @@
 import { useState } from "react";
 import API from "../api";
 
-export default function ExpenseForm({ refresh }){
-    const [form,setForm] = useState({ title:"",amount:""});
+export default function ExpenseForm({ onAdd }) {
+  const [title, setTitle] = useState("");
+  const [amount, setAmount] = useState("");
+  const [category, setCategory] = useState("food");
 
-    const submit = async(e) => {
-        e.preventDefault();
+  const submit = async (e) => {
+    e.preventDefault();
 
-        await API.post("/expenses",{
-            title: form.title,
-            amount: Number(form.amount)
-        });
+    try {
+      const res = await API.post("/expenses", {
+        title,
+        amount,
+        category
+      });
 
-        setForm({ title: "", amount:""});
-        if(refresh) refresh();
+      onAdd(res.data);
 
-    };
+      // Clear form
+      setTitle("");
+      setAmount("");
+      setCategory("food");
 
-    return(
-        <>
-        <form onSubmit={submit}>
-            <input
-                placeholder="Title"
-                value={form.title}
-                onChange={(e) =>
-                    setForm({...form, title: e.target.value})}
+    } catch (err) {
+      console.error("Add error:", err.response?.data || err.message);
+    }
+  };
 
-            />
+  return (
+    <form onSubmit={submit}>
+      <input
+        type="text"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
+      />
 
-            <input
-                placeholder="Amount"
-                type="number"
-                value={form.amount}
-                onChange={(e)=>setForm({...form, amount:e.target.value})}
-            />
-            <button type="submit">add</button>
-        </form>
+      <input
+        type="number"
+        placeholder="Amount"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        required
+      />
 
-        </>
-    );
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+      >
+        <option value="food">Food</option>
+        <option value="travel">Travel</option>
+        <option value="shopping">Shopping</option>
+        <option value="bills">Bills</option>
+        <option value="other">Other</option>
+      </select>
+
+      <button type="submit">Add</button>
+    </form>
+  );
 }
-
